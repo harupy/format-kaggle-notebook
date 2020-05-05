@@ -1,6 +1,7 @@
 # Format Kaggle Kernel
 
 [![CI](https://github.com/harupy/format-kaggle-kernel/workflows/CI/badge.svg)](https://github.com/harupy/format-kaggle-kernel/actions?query=workflow%3ACI)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/harupy/format-kaggle-kernel.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/harupy/format-kaggle-kernel/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/harupy/format-kaggle-kernel.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/harupy/format-kaggle-kernel/context:python)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
