@@ -55,9 +55,9 @@ def test_find_kernel(tmpdir, ext):
     assert utils.find_kernel(tmpdir) == path
 
 
-def test_replace_ext():
-    assert utils.replace_ext("test.py", ".ipynb") == "test.ipynb"
-    assert utils.replace_ext("test.py", "ipynb") == "test.ipynb"
+@pytest.mark.parametrize("ext", [".ipynb", "ipynb"])
+def test_replace_ext(ext):
+    assert utils.replace_ext("test.py", ext) == "test.ipynb"
 
 
 def test_py_to_nb(tmpdir):
