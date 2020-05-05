@@ -25,4 +25,7 @@ setup(
     install_requires=get_install_requires(),
     packages=find_packages(),
     python_requires=">=3.6",
+    entry_points={
+        "console_scripts": ["format-kernel = format_kaggle_kernel.entrypoint:main"]
+    },
 )
