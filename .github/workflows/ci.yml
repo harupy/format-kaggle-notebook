@@ -39,8 +39,8 @@ jobs:
       - name: pytest
         run: pytest tests
 
-  test-installation:
-    name: Test installation
+  test-console-script:
+    name: Test console script
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -50,5 +50,17 @@ jobs:
         with:
           python-version: 3.7
 
-      - name: Install installation
+      - name: Install
         run: pip install -e .
+
+      - name: Run console script
+        env:
+          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+        run: format-kernel -k harupy/format-kaggle-kernel
+
+      - name: Run console script with black options
+        env:
+          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+        run: format-kernel -k harupy/format-kaggle-kernel --line-length 100
