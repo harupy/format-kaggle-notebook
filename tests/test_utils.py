@@ -27,7 +27,7 @@ def test_run_shell(capsys):
 
 def test_run_shell_exit_on_error():
     with pytest.raises(SystemExit):
-        utils.run_shell("find")()
+        utils.run_shell("find")
 
 
 def test_is_script():
