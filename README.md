@@ -36,6 +36,10 @@ from format_kaggle_kernel import format_kernel
 format_kernel("<user>/<kernel-slug>", ["--line-length", "100"])
 ```
 
+## Supported Formatters
+
+- [black](https://github.com/psf/black)
+
 ## Limitation
 
-`black` raises an error when your kernel contains shell commands (e.g. `!ls`) or magic commands (e.g. `%time`).
+Formatting fails when your kernel contains shell commands (e.g. `!ls`) or magic commands (e.g. `%time`).
