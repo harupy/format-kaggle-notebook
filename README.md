@@ -28,4 +28,4 @@ format-kernel -k <user>/<kernel-slug> --line-length 100
 
 ## Limitation
 
-1. `black` raises a syntax error when your kernel contains shell commands (e.g. `!ls`) or magic commands (e.g. `%time`).
+`black` raises a syntax error when your kernel contains shell commands (e.g. `!ls`) or magic commands (e.g. `%time`).
