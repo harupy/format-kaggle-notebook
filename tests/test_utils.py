@@ -3,7 +3,6 @@ import os
 
 import pytest
 
-
 from format_kaggle_kernel import utils
 
 
