@@ -16,10 +16,8 @@ def parse_args():
     return parser.parse_known_args()  # Use unknown arguments as black arguments.
 
 
-def main():
-    args, black_args = parse_args()  # `black_args` is a list of strings.
-    kernel = args.kernel
-    black_args = " ".join(black_args)
+def format_kernel(kernel, black_args=None):
+    black_args = " ".join(black_args) if black_args else ""
 
     with tempfile.TemporaryDirectory() as tmpdir:
         # Fetch metadata too to push the kernel back to Kaggle after formatting.
@@ -48,6 +46,11 @@ def main():
 
         utils.run_shell(f"kaggle kernels push -p {tmpdir}")
         utils.run_shell(f"kaggle kernels status {kernel}")  # should return "queued".
+
+
+def main():
+    args, black_args = parse_args()  # `black_args` is a list of strings.
+    format_kernel(args.kernel, black_args)
 
 
 if __name__ == "__main__":
