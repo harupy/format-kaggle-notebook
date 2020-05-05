@@ -38,3 +38,17 @@ jobs:
 
       - name: pytest
         run: pytest tests
+
+  test-installation:
+    name: Test installation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.7
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.7
+
+      - name: Install installation
+        run: pip install -e .
