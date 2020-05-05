@@ -116,7 +116,7 @@ def test_nb_to_py(tmpdir):
         f.write(nb_src)
 
     utils.nb_to_py(nb_path, py_path)
-    # Remove header lines that jupytext adds.
+    # jupytext adds header lines to the generated script.
     py_src = remove_comments_and_blank_lines(open(py_path).read())
 
     assert os.path.exists(py_path)
