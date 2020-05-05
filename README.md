@@ -17,13 +17,23 @@ In order to use `format-kaggle-kernel`, you must first authenticate using an API
 
 See: https://www.kaggle.com/docs/api
 
-## How to run
+## Usage
+
+#### Using as CLI
 
 ```bash
 format-kernel -k <user>/<kernel-slug>
 
 # You can pass black options
 format-kernel -k <user>/<kernel-slug> --line-length 100
+```
+
+#### Using as a Python library
+
+```python
+from format_kaggle_kernel import format_kernel
+
+format_kernel("<user>/<kernel-slug>", ["--line-length", "100"])
 ```
 
 ## Limitation
