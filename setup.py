@@ -22,5 +22,7 @@ def get_install_requires():
 
 
 setup(
-    install_requires=get_install_requires(), packages=find_packages(),
+    install_requires=get_install_requires(),
+    packages=find_packages(),
+    python_requires=">=3.6",
 )
