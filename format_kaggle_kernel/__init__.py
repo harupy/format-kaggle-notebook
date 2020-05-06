@@ -36,7 +36,7 @@ def format_kernel(kernel, black_args=None):
             # 3. Format the script.
             #    (black raises an error if shell (!) or magic (%%) commands exist.)
             # 4. Uncomment out magic commands
-            # 4. Convet the formatted script to a notebook.
+            # 5. Convet the formatted script to a notebook.
             with tempfile.NamedTemporaryFile(suffix=".py") as py_path:
                 py_path = py_path.name
                 utils.nb_to_py(kernel_path, py_path)
