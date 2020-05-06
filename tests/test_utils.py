@@ -47,12 +47,9 @@ def test_is_kernel():
 
 @pytest.mark.parametrize("ext", [".py", ".ipynb"])
 def test_find_kernel(tmpdir, ext):
-    tmpdir = str(tmpdir)
-    path = os.path.join(tmpdir, "test" + ext)
-    with open(path, "w") as f:
-        f.write("")
-
-    assert utils.find_kernel(tmpdir) == path
+    p = tmpdir.join("test" + ext)
+    p.write("")
+    assert utils.find_kernel(tmpdir.strpath) == p.strpath
 
 
 @pytest.mark.parametrize("ext", [".ipynb", "ipynb"])
@@ -61,17 +58,15 @@ def test_replace_ext(ext):
 
 
 def test_py_to_nb(tmpdir):
-    py_path = os.path.join(tmpdir, "test.py")
-    nb_path = os.path.join(tmpdir, "test.ipynb")
+    py = tmpdir.join("test.py")
+    nb = tmpdir.join("test.ipynb")
 
     py_src = 'print("hello world")'
-    with open(py_path, "w") as f:
-        f.write(py_src)
+    py.write(py_src)
+    utils.py_to_nb(py.strpath, nb.strpath)
 
-    utils.py_to_nb(py_path, nb_path)
-
-    assert os.path.exists(nb_path)
-    assert read_json(nb_path)["cells"][0]["source"][0] == py_src
+    assert os.path.exists(nb.strpath)
+    assert read_json(nb.strpath)["cells"][0]["source"][0] == py_src
 
 
 def test_nb_to_py(tmpdir):
@@ -108,17 +103,15 @@ def test_nb_to_py(tmpdir):
 }
 """.strip()
 
-    nb_path = os.path.join(tmpdir, "test.ipynb")
-    py_path = os.path.join(tmpdir, "test.py")
+    nb = tmpdir.join("test.ipynb")
+    py = tmpdir.join("test.py")
+    nb.write(nb_src)
 
-    with open(nb_path, "w") as f:
-        f.write(nb_src)
-
-    utils.nb_to_py(nb_path, py_path)
+    utils.nb_to_py(nb.strpath, py.strpath)
     # jupytext adds header lines to the generated script.
-    py_src = remove_comments_and_blank_lines(open(py_path).read())
+    py_src = remove_comments_and_blank_lines(py.read())
 
-    assert os.path.exists(py_path)
+    assert os.path.exists(py.strpath)
     assert py_src == json.loads(nb_src)["cells"][0]["source"][0]
 
 
@@ -159,7 +152,7 @@ def test_comment_magic(tmpdir):
     p = tmpdir.join("test.py")
     p.write(source)
     utils.comment_magic(p)
-    assert "".join(p.readlines()) == source_formatted
+    assert p.read() == source_formatted
 
 
 def test_uncomment_magic(tmpdir):
@@ -182,4 +175,4 @@ def test_uncomment_magic(tmpdir):
     p = tmpdir.join("test.py")
     p.write(source)
     utils.uncomment_magic(p)
-    assert "".join(p.readlines()) == source_formatted
+    assert p.read() == source_formatted
