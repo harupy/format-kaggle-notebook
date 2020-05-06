@@ -120,3 +120,20 @@ def test_nb_to_py(tmpdir):
 
     assert os.path.exists(py_path)
     assert py_src == json.loads(nb_src)["cells"][0]["source"][0]
+
+
+def test_format_source(tmpdir):
+    source = """
+hello
+world
+""".strip()
+
+    source_formatted = """
+# hello
+# world
+""".strip()
+
+    p = tmpdir.join("test.txt")
+    p.write(source)
+    utils.format_source(p, lambda source: [f"# {l}" for l in source])
+    assert "".join(p.readlines()) == source_formatted

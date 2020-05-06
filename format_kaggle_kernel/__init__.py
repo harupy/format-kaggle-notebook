@@ -2,6 +2,8 @@ import argparse
 import os
 import tempfile
 
+from jupytext.magics import comment_magic, uncomment_magic
+
 from format_kaggle_kernel import utils
 
 
@@ -31,13 +33,17 @@ def format_kernel(kernel, black_args=None):
         elif utils.is_notebook(kernel_path):
             # If notebook, do the following steps.
             # 1. Convert the notebook to a script.
-            # 2. Format the script.
+            # 2. Comment out magic commands
+            # 3. Format the script.
             #    (black raises an error if shell (!) or magic (%%) commands exist.)
-            # 3 Convet the formatted script to a notebook.
+            # 4. Uncomment out magic commands
+            # 4. Convet the formatted script to a notebook.
             with tempfile.NamedTemporaryFile(suffix=".py") as py_path:
                 py_path = py_path.name
                 utils.nb_to_py(kernel_path, py_path)
+                utils.format_source(py_path, comment_magic)
                 utils.run_shell(f"black {black_args} {py_path}")
+                utils.format_source(py_path, uncomment_magic)
                 utils.py_to_nb(py_path, kernel_path)
 
         else:

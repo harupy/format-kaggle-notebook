@@ -57,3 +57,11 @@ def nb_to_py(nb_path, py_path):
 
 def py_to_nb(py_path, nb_path):
     jupytext.write(jupytext.read(py_path), nb_path, fmt=".ipynb")
+
+
+def format_source(path, format_func):
+    with open(path, "r") as fr:
+        lines = fr.readlines()
+
+    with open(path, "w") as fw:
+        fw.write("".join(format_func(lines)))
