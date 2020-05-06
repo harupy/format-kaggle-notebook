@@ -137,3 +137,49 @@ world
     p.write(source)
     utils.format_source(p, lambda source: [f"# {l}" for l in source])
     assert "".join(p.readlines()) == source_formatted
+
+
+def test_comment_magic(tmpdir):
+    source = """
+# %% [code]
+%%time
+
+# %% [code]
+!ls
+""".strip()
+
+    source_formatted = """
+# %% [code]
+# %%time
+
+# %% [code]
+# !ls
+""".strip()
+
+    p = tmpdir.join("test.py")
+    p.write(source)
+    utils.comment_magic(p)
+    assert "".join(p.readlines()) == source_formatted
+
+
+def test_uncomment_magic(tmpdir):
+    source = """
+# %% [code]
+# %%time
+
+# %% [code]
+# !ls
+""".strip()
+
+    source_formatted = """
+# %% [code]
+%%time
+
+# %% [code]
+!ls
+""".strip()
+
+    p = tmpdir.join("test.py")
+    p.write(source)
+    utils.uncomment_magic(p)
+    assert "".join(p.readlines()) == source_formatted

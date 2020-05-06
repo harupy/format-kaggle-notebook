@@ -65,3 +65,11 @@ def format_source(path, formatter):
 
     with open(path, "w") as fw:
         fw.write("".join(formatter(lines)))
+
+
+def comment_magic(path):
+    format_source(path, jupytext.magics.comment_magic)
+
+
+def uncomment_magic(path):
+    format_source(path, jupytext.magics.uncomment_magic)

@@ -2,7 +2,6 @@ import argparse
 import os
 import tempfile
 
-from jupytext.magics import comment_magic, uncomment_magic
 
 from format_kaggle_kernel import utils
 
@@ -41,9 +40,9 @@ def format_kernel(kernel, black_args=None):
             with tempfile.NamedTemporaryFile(suffix=".py") as py_path:
                 py_path = py_path.name
                 utils.nb_to_py(kernel_path, py_path)
-                utils.format_source(py_path, comment_magic)
+                utils.comment_magic(py_path)
                 utils.run_shell(f"black {black_args} {py_path}")
-                utils.format_source(py_path, uncomment_magic)
+                utils.uncomment_magic(py_path)
                 utils.py_to_nb(py_path, kernel_path)
 
         else:
