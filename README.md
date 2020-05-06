@@ -41,7 +41,3 @@ format_kernel("<user>/<kernel-slug>", ["--line-length", "100"])
 ## Supported Formatters
 
 - [black](https://github.com/psf/black)
-
-## Limitation
-
-Formatting fails when your kernel contains shell commands (e.g. `!ls`) or magic commands (e.g. `%time`).

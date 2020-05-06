@@ -57,3 +57,19 @@ def nb_to_py(nb_path, py_path):
 
 def py_to_nb(py_path, nb_path):
     jupytext.write(jupytext.read(py_path), nb_path, fmt=".ipynb")
+
+
+def format_source(path, formatter):
+    with open(path, "r") as fr:
+        lines = fr.readlines()
+
+    with open(path, "w") as fw:
+        fw.write("".join(formatter(lines)))
+
+
+def comment_magic(path):
+    format_source(path, jupytext.magics.comment_magic)
+
+
+def uncomment_magic(path):
+    format_source(path, jupytext.magics.uncomment_magic)

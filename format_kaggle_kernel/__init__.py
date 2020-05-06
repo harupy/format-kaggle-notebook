@@ -31,13 +31,17 @@ def format_kernel(kernel, black_args=None):
         elif utils.is_notebook(kernel_path):
             # If notebook, do the following steps.
             # 1. Convert the notebook to a script.
-            # 2. Format the script.
+            # 2. Comment out magic commands
+            # 3. Format the script.
             #    (black raises an error if shell (!) or magic (%%) commands exist.)
-            # 3 Convet the formatted script to a notebook.
+            # 4. Uncomment out magic commands
+            # 5. Convet the formatted script to a notebook.
             with tempfile.NamedTemporaryFile(suffix=".py") as py_path:
                 py_path = py_path.name
                 utils.nb_to_py(kernel_path, py_path)
+                utils.comment_magic(py_path)
                 utils.run_shell(f"black {black_args} {py_path}")
+                utils.uncomment_magic(py_path)
                 utils.py_to_nb(py_path, kernel_path)
 
         else:
